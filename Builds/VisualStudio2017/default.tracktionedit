@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<EDIT appVersion="Unknown" projectID="0/53f222" creationTime="1557881630962"
+      modifiedBy="Charles">
+  <TRANSPORT loopPoint1="0.0" loopPoint2="20.0" looping="1" position="2.583492063492061"/>
+  <MACROPARAMETERS id="1001"/>
+  <TEMPOSEQUENCE>
+    <TEMPO startBeat="0.0" bpm="120.0" curve="1.0"/>
+    <TIMESIG numerator="4" denominator="4" startBeat="0.0"/>
+  </TEMPOSEQUENCE>
+  <PITCHSEQUENCE>
+    <PITCH startBeat="0.0" pitch="60"/>
+  </PITCHSEQUENCE>
+  <VIDEO/>
+  <AUTOMAPXML/>
+  <CLICKTRACK level="0.6000000238418579"/>
+  <ID3VORBISMETADATA trackNumber="1" date="2019"/>
+  <MASTERVOLUME>
+    <PLUGIN type="volume" volume="0.6376281380653381" id="1003" enabled="1">
+      <MACROPARAMETERS id="1005"/>
+      <MODIFIERASSIGNMENTS/>
+    </PLUGIN>
+  </MASTERVOLUME>
+  <RACKS/>
+  <MASTERPLUGINS/>
+  <AUXBUSNAMES/>
+  <INPUTDEVICES>
+    <INPUTDEVICE name="MPK Mini Mk II"/>
+    <INPUTDEVICE name="Input 1"/>
+    <INPUTDEVICE name="Input 2"/>
+  </INPUTDEVICES>
+  <TRACKCOMPS/>
+  <TEMPOTRACK name="Global" id="1025">
+    <MACROPARAMETERS id="1027"/>
+    <MODIFIERS/>
+  </TEMPOTRACK>
+  <MARKERTRACK id="1007">
+    <MACROPARAMETERS id="1009"/>
+    <MODIFIERS/>
+  </MARKERTRACK>
+  <CHORDTRACK name="Chords" id="1030">
+    <MACROPARAMETERS id="1032"/>
+    <MODIFIERS/>
+  </CHORDTRACK>
+  <TRACK id="1012" midiVProp="0.28125" midiVOffset="0.359375">
+    <MACROPARAMETERS id="1014"/>
+    <MODIFIERS/>
+    <AUDIOCLIP name="Charles Wave Clip" start="0.0" length="60.0" offset="0.0"
+               id="1036" source="C:\projects-charles\reaper\mw-spring-2019.wav"
+               sync="0" elastiqueMode="0" pan="0.0" colour="ffff0000">
+      <LOOPINFO rootNote="-1" numBeats="56.12213151927438" oneShot="0" denominator="4"
+                numerator="4" bpm="0.0" inMarker="0" outMarker="-1"/>
+    </AUDIOCLIP>
+    <PLUGIN type="volume" id="1017" enabled="1" remapOnTempoChange="1">
+      <MACROPARAMETERS id="1018"/>
+      <MODIFIERASSIGNMENTS/>
+    </PLUGIN>
+    <PLUGIN type="level" id="1021" enabled="1">
+      <MACROPARAMETERS id="1022"/>
+    </PLUGIN>
+    <OUTPUTDEVICES>
+      <DEVICE name="(default audio output)"/>
+    </OUTPUTDEVICES>
+  </TRACK>
+  <ARADOCUMENT/>
+  <CONTROLLERMAPPINGS/>
+</EDIT>
