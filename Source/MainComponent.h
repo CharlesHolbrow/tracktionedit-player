@@ -37,6 +37,8 @@ private:
     // Your private member variables go here...
     te::Engine engine;
     std::unique_ptr<te::Edit> edit;
+    String currentSizeAsString;
+    TextButton playButton{ "Play" };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

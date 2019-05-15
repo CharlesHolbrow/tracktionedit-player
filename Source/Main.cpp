@@ -71,6 +71,8 @@ public:
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
            #else
+            // Because we are using nativeTitleBar, some setReziable arguments
+            // may have no effect
             setResizable (true, true);
             centreWithSize (getWidth(), getHeight());
            #endif

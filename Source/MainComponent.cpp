@@ -11,9 +11,10 @@
 //==============================================================================
 MainComponent::MainComponent() : engine("Ok engine")
 {
+    addAndMakeVisible(playButton);
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (800, 600);
+    setSize (400, 400);
 
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -32,17 +33,34 @@ MainComponent::MainComponent() : engine("Ok engine")
     te::Edit::LoadContext loadContext;
     edit = std::make_unique<te::Edit>(engine,
                                      te::createEmptyEdit(),
-                                     te::Edit::forRendering,
+                                     te::Edit::forEditing,
                                      &loadContext,
                                      0);
     auto editFile = juce::File::getCurrentWorkingDirectory().getChildFile("default.tracktionedit");
+    auto audioFile = juce::File("C:\\projects-charles\\reaper\\mw-spring-2019.wav");
+    if (audioFile.existsAsFile())
+        te::getFirstAudioTrack(*edit)->insertWaveClip("Charles Wave Clip", audioFile, { { 0., 60. }, 0. }, false);
+    else
+        DBG("File Not Found: " + audioFile.getFullPathName());
+
     edit->editFileRetriever = [editFile] { return editFile; };
+    // Enable looping
+    edit->getTransport().play(false);
+    edit->getTransport().setLoopRange({ 0, 20 });
+    edit->getTransport().looping = true;
+
+    // Start playback on button click
+    playButton.onClick = [this] {
+        if (edit != nullptr) {
+            edit->getTransport().play(false);
+            DBG("Playing...");
+        }
+    };
 }
 
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
-
     if (auto e = edit.get()) {
         DBG("SAVE: ");
         DBG(e->editFileRetriever().getFullPathName());
@@ -88,13 +106,16 @@ void MainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.setColour(getLookAndFeel().findColour(TextPropertyComponent::textColourId));
+    if (edit) {
+        g.drawText(String(edit->getTransport().getCurrentPosition()), 20, 40, 100, 40, Justification::centred, true);
+        g.drawText(String("Playing? ") + (edit->getTransport().isPlaying() ? String{ "true" } : String{ "false" }), 20, 60, 100, 40, Justification::centred, true);
+    }
 
-    // You can add your drawing code here!
 }
 
 void MainComponent::resized()
 {
-    // This is called when the MainContentComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
+    currentSizeAsString = String(getWidth()) + "x" + String(getHeight());
+    playButton.setBounds(10, 10, 80, 20);
 }
