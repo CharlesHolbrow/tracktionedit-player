@@ -4,9 +4,13 @@
               jucerVersion="5.4.3">
   <MAINGROUP id="kJrlU1" name="tracktionedit-player">
     <GROUP id="{D722D015-61DF-BABA-056C-6BCA024726D2}" name="Source">
+      <FILE id="BQeeRb" name="CliUiBehaviour.h" compile="0" resource="0"
+            file="Source/CliUiBehaviour.h"/>
       <FILE id="fS1KAU" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="bMIsRI" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="VbuWvw" name="CliUiBehaviour.cpp" compile="1" resource="0"
+            file="Source/CliUiBehaviour.cpp"/>
       <FILE id="CUYm26" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
@@ -82,5 +86,5 @@
     <OSX/>
     <WINDOWS/>
   </LIVE_SETTINGS>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_PLUGINHOST_VST3="1"/>
 </JUCERPROJECT>

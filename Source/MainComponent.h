@@ -9,6 +9,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "CliUiBehaviour.h"
 namespace te = tracktion_engine;
 
 //==============================================================================

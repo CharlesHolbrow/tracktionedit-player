@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 640E8D4259319D0F9D75CF15;
 		};
+		D2224283EBF53DCA34B2C173 = {
+			isa = PBXBuildFile;
+			fileRef = A4D2288365B47F1DCC0241C5;
+		};
 		AC9213DE3C161C0575051224 = {
 			isa = PBXBuildFile;
 			fileRef = 199D444051975BC195E612E8;
@@ -395,11 +399,25 @@
 			path = "../../JuceLibraryCode/include_juce_osc.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		A1B9C894B1196B4768F5B0CA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = CliUiBehaviour.h;
+			path = ../../Source/CliUiBehaviour.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		A407208BB2A70076D64E6777 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = "include_tracktion_engine_playback.cpp";
 			path = "../../JuceLibraryCode/include_tracktion_engine_playback.cpp";
+			sourceTree = "SOURCE_ROOT";
+		};
+		A4D2288365B47F1DCC0241C5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = CliUiBehaviour.cpp;
+			path = ../../Source/CliUiBehaviour.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AC46577401C2E209F456581F = {
@@ -566,8 +584,10 @@
 		3D40788BD7FD49106DDD7BFD = {
 			isa = PBXGroup;
 			children = (
+				A1B9C894B1196B4768F5B0CA,
 				5A67C34C52DDD4C5C17ED9A4,
 				640E8D4259319D0F9D75CF15,
+				A4D2288365B47F1DCC0241C5,
 				199D444051975BC195E612E8,
 			);
 			name = Source;
@@ -712,6 +732,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
+					"$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"../../JuceLibraryCode",
 					"$(HOME)/JUCE/modules",
 					"$(HOME)/modules",
@@ -756,6 +777,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
+					"$(HOME)/JUCE/modules/juce_audio_processors/format_types/VST3_SDK",
 					"../../JuceLibraryCode",
 					"$(HOME)/JUCE/modules",
 					"$(HOME)/modules",
@@ -897,6 +919,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC4CCAAF06C7822C029A049B,
+				D2224283EBF53DCA34B2C173,
 				AC9213DE3C161C0575051224,
 				9B24FF98D59B4F50000DC0B6,
 				AD48F13DEF4EC54C25561969,

@@ -9,7 +9,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : engine("Ok engine")
+MainComponent::MainComponent() : engine("Ok engine", std::make_unique<CliUiBehaviour>(), nullptr)
 {
     addAndMakeVisible(playButton);
     // Make sure you set the size of the component after
@@ -28,12 +28,59 @@ MainComponent::MainComponent() : engine("Ok engine")
         // Specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }
-    
-    DBG(juce::File::getCurrentWorkingDirectory().getFullPathName());
+
+    // ------------ Plugin Scan -------------
+        // Log all the stuff about the plugins
+    std::cout << "Plugin Info..." << std::endl;
+    juce::File pluginDir{ "C:\\Program Files\\Common Files\\VST3\\" };
+    juce::FileSearchPath pluginSearchPath;
+    pluginSearchPath.add(pluginDir);
+    juce::VST3PluginFormat vst3;
+    juce::String deadPlugins;
+    std::cout << "Plugin directors isDir? " << pluginDir.getFullPathName() << " - " << pluginDir.isDirectory() << std::endl;
+
+    engine.getPluginManager().scanCompletedCallback = [] {
+        std::cout << "----------Plugin Scan Completed----------" << std::endl;
+    };
+    juce::PluginDirectoryScanner pluginScanner{
+        engine.getPluginManager().knownPluginList,
+        vst3,
+        pluginSearchPath,
+        true,
+        deadPlugins
+    };
+     engine.getPluginManager().setNumberOfThreadsForScanning(1);
+
+    juce::String pluginName;
+    std::cout << "Next plugin to scan: " << pluginScanner.getNextPluginFileThatWillBeScanned() << std::endl;
+    while (pluginScanner.scanNextFile(false, pluginName)) {
+        std::cout << "Scanned: " << pluginName << std::endl;
+        std::cout << "Dead Plugins: " << deadPlugins << std::endl;
+    }
+    std::cout << "Scanned: " << pluginName << std::endl;
+    std::cout << "Dead Plugins: " << deadPlugins << std::endl << std::endl;
+    for (auto filename : pluginScanner.getFailedFiles()) {
+        std::cout << "Failed to load plugin: " << filename << std::endl;
+    }
+    // ----------------------
+
+    DBG("Working Directory: " + juce::File::getCurrentWorkingDirectory().getFullPathName());
+
+    auto inputFile = File::getCurrentWorkingDirectory().getChildFile("input.tracktionedit");
+    bool load = inputFile.existsAsFile();
+    ValueTree valueTree;
+    if (load) {
+        valueTree = te::loadEditFromFile(inputFile, te::ProjectItemID::createNewID(0));
+        DBG("Loaded: " + inputFile.getFullPathName());
+    }
+    else {
+        valueTree = te::createEmptyEdit();
+    }
+
     te::Edit::LoadContext loadContext;
     edit = std::make_unique<te::Edit>(engine,
-                                     te::createEmptyEdit(),
-                                     te::Edit::forEditing,
+                                     valueTree,
+                                     te::Edit::forRendering,
                                      &loadContext,
                                      0);
     auto editFile = juce::File::getCurrentWorkingDirectory().getChildFile("default.tracktionedit");
@@ -45,7 +92,7 @@ MainComponent::MainComponent() : engine("Ok engine")
 
     edit->editFileRetriever = [editFile] { return editFile; };
     // Enable looping
-    edit->getTransport().play(false);
+    //edit->getTransport().play(false);
     edit->getTransport().setLoopRange({ 0, 20 });
     edit->getTransport().looping = true;
 
@@ -56,6 +103,23 @@ MainComponent::MainComponent() : engine("Ok engine")
             DBG("Playing...");
         }
     };
+
+    // ----------- Rendering --------------
+    BigInteger tracksToDo;
+    int trackIndex = 0;
+    for (auto track : te::getAllTracks(*edit)) {
+        tracksToDo.setBit(trackIndex++);
+    }
+    te::Renderer::Parameters params{ *edit };
+    juce::WavAudioFormat wavFormat{};
+
+    params.destFile = juce::File::getCurrentWorkingDirectory().getChildFile("out.wav");
+    params.time = te::EditTimeRange{ 0, edit->getLength() };
+    params.audioFormat = &wavFormat;
+    params.usePlugins = true;
+    params.tracksToDo = tracksToDo;
+    //te::Renderer::renderToFile({ "Chaz Render Job" }, { juce::File::getCurrentWorkingDirectory().getChildFile("out.wav") }, *edit, { 0, 20 }, tracksToDo, true, {}, false);
+    te::Renderer::renderToFile({ "Chaz Render Job" }, params);
 }
 
 MainComponent::~MainComponent()

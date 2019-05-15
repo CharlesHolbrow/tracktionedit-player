@@ -940,6 +940,9 @@
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>tracktionedit-player\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CliUiBehaviour.cpp">
+      <Filter>tracktionedit-player\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>tracktionedit-player\Source</Filter>
     </ClCompile>
@@ -4344,6 +4347,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\CliUiBehaviour.h">
+      <Filter>tracktionedit-player\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>tracktionedit-player\Source</Filter>
     </ClInclude>
